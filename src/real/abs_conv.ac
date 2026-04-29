@@ -11,12 +11,13 @@ from real.limits import vanishes, abs_seq
 from real.real_base import add_assoc, add_neg_eq_zero, add_zero_left, add_zero_right, neg_neg, sub_moves_sides, abs_neg, lte_trans, lte_lt_trans, lt_lte_trans, lt_trans, lt_add_pos, not_lt_imp_gte
 from real.prod_seq import prod_seq
 from set import Set, is_decreasing, seq_intersection, decreasing_seq_transitive, seq_union,
-    seq_complement, seq_union_universal_imp_complement_intersection_empty, seq_union_nat_lt_set_universal,
-    seq_union_set_image, set_ext, nat_lt_set, nat_lt_set_contains_eq, nat_lt_set_subset_suc,
-    nat_lt_set_suc_eq_union, set_image, set_image_monotone, set_image_seq, set_image_union,
-    set_image_singleton, set_image_contains_witness, set_image_universal_of_surjective,
+    seq_complement, seq_union_universal_imp_complement_intersection_empty,
+    set_ext, nat_lt_set, nat_lt_set_contains_eq,
+    nat_lt_set_suc_eq_union, set_image, set_image_union,
+    set_image_singleton, set_image_contains_witness,
     maps_into_set_image, set_is_disjoint_compl, union_compl_is_universal,
-    seq_complement_decreasing_of_step_subset
+    seq_complement_is_decreasing_of_increasing, set_sequence_is_increasing, image_of_range,
+    image_of_range_eq_set_image, image_of_range_increasing, image_of_range_union_universal
 
 numerals Real
 
@@ -1326,39 +1327,20 @@ theorem decreasing_empty_intersection_mask_vanishes(a: Nat -> Real, s: Nat -> Se
     }
 }
 
-/// True if a sequence of sets is increasing.
-define set_seq_increasing(seq: Nat -> Set[Nat]) -> Bool {
-    forall(i: Nat) {
-        seq(i).subset(seq(i.suc))
-    }
-}
-
-/// The complement sequence of an increasing sequence is decreasing.
-theorem increasing_seq_complement_decreasing(s: Nat -> Set[Nat]) {
-    set_seq_increasing(s)
-    implies
-    is_decreasing(seq_complement(s))
-} by {
-    if set_seq_increasing(s) {
-        seq_complement_decreasing_of_step_subset(s)
-        is_decreasing(seq_complement(s))
-    }
-}
-
 /// For an absolutely convergent series and an increasing sequence of sets whose union is universal,
 /// the sequence of mask sums converges to the limit of the series.
 theorem increasing_universal_union_mask_limit(a: Nat -> Real, s: Nat -> Set[Nat]) {
     absolutely_converges(a)
-    and set_seq_increasing(s)
+    and set_sequence_is_increasing(s)
     and seq_union(s) = Set[Nat].universal_set
     implies
     converges_to(mask_seq_sum(a, s), limit(partial(a)))
 } by {
-    if absolutely_converges(a) and set_seq_increasing(s) and seq_union(s) = Set[Nat].universal_set {
+    if absolutely_converges(a) and set_sequence_is_increasing(s) and seq_union(s) = Set[Nat].universal_set {
         let sc = seq_complement(s)
 
         // The complement sequence is decreasing with empty intersection
-        increasing_seq_complement_decreasing(s)
+        seq_complement_is_decreasing_of_increasing(s)
         is_decreasing(sc)
 
         seq_intersection(sc).is_empty
@@ -1496,66 +1478,6 @@ theorem increasing_universal_union_mask_limit(a: Nat -> Real, s: Nat -> Set[Nat]
         limit(mask_seq_sum(a, s)) = limit(partial(a))
 
         converges_to(mask_seq_sum(a, s), limit(partial(a)))
-    }
-}
-
-/// The image of {0, 1, ..., k-1} under the function p.
-define image_of_range(p: Nat -> Nat, k: Nat) -> Set[Nat] {
-    set_image(nat_lt_set(k), p)
-}
-
-/// The image of a finite initial segment agrees with the generic set image construction.
-theorem image_of_range_eq_set_image(p: Nat -> Nat, k: Nat) {
-    image_of_range(p, k) = set_image(nat_lt_set(k), p)
-}
-
-/// If p is injective, the image sequence is increasing.
-theorem image_of_range_increasing(p: Nat -> Nat) {
-    is_injective(p)
-    implies
-    set_seq_increasing(image_of_range(p))
-} by {
-    if is_injective(p) {
-        forall(k: Nat) {
-            image_of_range_eq_set_image(p, k)
-            image_of_range_eq_set_image(p, k.suc)
-            nat_lt_set_subset_suc(k)
-            set_image_monotone(nat_lt_set(k), nat_lt_set(k.suc), p)
-            image_of_range(p, k).subset(image_of_range(p, k.suc))
-        }
-        set_seq_increasing(image_of_range(p))
-    }
-}
-
-/// If p is surjective, the union of the image sequence is universal.
-theorem image_of_range_union_eq_universal_image(p: Nat -> Nat) {
-    seq_union(image_of_range(p)) = set_image(Set[Nat].universal_set, p)
-} by {
-    forall(k: Nat) {
-        image_of_range_eq_set_image(p, k)
-        set_image_seq(nat_lt_set, p, k) = set_image(nat_lt_set(k), p)
-        image_of_range(p, k) = set_image_seq(nat_lt_set, p, k)
-    }
-    function_extensionality(image_of_range(p), set_image_seq(nat_lt_set, p))
-    seq_union(image_of_range(p)) = seq_union(set_image_seq(nat_lt_set, p))
-    seq_union_set_image(nat_lt_set, p)
-    seq_union(image_of_range(p)) = set_image(seq_union(nat_lt_set), p)
-    seq_union_nat_lt_set_universal
-    seq_union(image_of_range(p)) = set_image(Set[Nat].universal_set, p)
-}
-
-/// If p is surjective, the union of the image sequence is universal.
-theorem image_of_range_union_universal(p: Nat -> Nat) {
-    is_surjective(p)
-    implies
-    seq_union(image_of_range(p)) = Set[Nat].universal_set
-} by {
-    if is_surjective(p) {
-        image_of_range_union_eq_universal_image(p)
-        seq_union(image_of_range(p)) = set_image(Set[Nat].universal_set, p)
-        set_image_universal_of_surjective(p)
-        set_image(Set[Nat].universal_set, p) = Set[Nat].universal_set
-        seq_union(image_of_range(p)) = Set[Nat].universal_set
     }
 }
 
@@ -1936,7 +1858,7 @@ theorem riemann_rearrangement_absolutely_converges(a: Nat -> Real, p: Nat -> Nat
         is_injective(p)
         is_surjective(p)
 
-        set_seq_increasing(image_of_range(p))
+        set_sequence_is_increasing(image_of_range(p))
 
         seq_union(image_of_range(p)) = Set[Nat].universal_set
 
@@ -1999,7 +1921,7 @@ theorem riemann_rearrangement_theorem(a: Nat -> Real, p: Nat -> Nat) {
         is_injective(p)
         is_surjective(p)
 
-        set_seq_increasing(image_of_range(p))
+        set_sequence_is_increasing(image_of_range(p))
 
         seq_union(image_of_range(p)) = Set[Nat].universal_set
 

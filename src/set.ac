@@ -6,7 +6,7 @@ from nat import Nat
 from nat.nat_base import add_imp_sub
 from functions import compose, is_injective_fn, is_surjective_fn, is_bijection_fn,
     bijection_fn_is_injective, bijection_fn_is_surjective, injective_fn_eq,
-    surjective_fn_has_preimage
+    surjective_fn_has_preimage, is_injective, is_surjective, function_extensionality
 from relation_basic import is_symmetric, is_transitive, is_equivalence, is_partial_equivalence,
     eq_relation, relation_converse, symmetric_flip, equivalence_flip, equivalence_self,
     equivalence_step, equivalence_imp_relation_converse_eq, partial_equivalence_flip,
@@ -3426,6 +3426,11 @@ define is_increasing[T](seq: Nat -> Set[T]) -> Bool {
     }
 }
 
+/// True if a sequence of sets is increasing, with an explicit set-family name.
+define set_sequence_is_increasing[T](seq: Nat -> Set[T]) -> Bool {
+    is_increasing(seq)
+}
+
 /// The union of all sets in a sequence.
 define seq_union[T](seq: Nat -> Set[T]) -> Set[T] {
     union_family(seq)
@@ -4073,6 +4078,93 @@ theorem seq_intersection_subset_range_indexed_intersection[K](n: Nat, family: Na
     }
 }
 
+/// The sequence of finite initial unions of a set family.
+define range_union_sequence[K](family: Nat -> Set[K], n: Nat) -> Set[K] {
+    range_indexed_union(n.suc, family)
+}
+
+/// The sequence of finite initial intersections of a set family.
+define range_intersection_sequence[K](family: Nat -> Set[K], n: Nat) -> Set[K] {
+    range_indexed_intersection(n.suc, family)
+}
+
+/// The union of the finite-initial-union sequence is the original sequence union.
+theorem seq_union_range_union_sequence_eq[K](family: Nat -> Set[K]) {
+    seq_union(range_union_sequence(family)) = seq_union(family)
+} by {
+    let u = seq_union(range_union_sequence(family))
+    let v = seq_union(family)
+    forall(x: K) {
+        if u.contains(x) {
+            seq_union_contains_witness(range_union_sequence(family), x)
+            let n: Nat satisfy {
+                range_union_sequence(family, n).contains(x)
+            }
+            range_union_sequence(family, n) = range_indexed_union(n.suc, family)
+            range_indexed_union_contains_witness(n.suc, family, x)
+            let i: Nat satisfy {
+                i < n.suc and family(i).contains(x)
+            }
+            seq_union_contains_of_contains(family, i, x)
+            v.contains(x)
+        }
+        if v.contains(x) {
+            seq_union_contains_witness(family, x)
+            let i: Nat satisfy {
+                family(i).contains(x)
+            }
+            i < i.suc
+            range_indexed_union_contains_of_lt(i.suc, family, i, x)
+            range_union_sequence(family, i) = range_indexed_union(i.suc, family)
+            range_union_sequence(family, i).contains(x)
+            seq_union_contains_of_contains(range_union_sequence(family), i, x)
+            u.contains(x)
+        }
+        u.contains(x) = v.contains(x)
+    }
+    set_ext(u, v)
+}
+
+/// The intersection of the finite-initial-intersection sequence is the original sequence intersection.
+theorem seq_intersection_range_intersection_sequence_eq[K](family: Nat -> Set[K]) {
+    seq_intersection(range_intersection_sequence(family)) = seq_intersection(family)
+} by {
+    let u = seq_intersection(range_intersection_sequence(family))
+    let v = seq_intersection(family)
+    forall(x: K) {
+        if u.contains(x) {
+            forall(i: Nat) {
+                seq_intersection_contains_at(range_intersection_sequence(family), i, x)
+                range_intersection_sequence(family, i).contains(x)
+                range_intersection_sequence(family, i) = range_indexed_intersection(i.suc, family)
+                i < i.suc
+                range_indexed_intersection_contains_at(i.suc, family, i, x)
+                family(i).contains(x)
+            }
+            seq_intersection_contains_of_forall(family, x)
+            v.contains(x)
+        }
+        if v.contains(x) {
+            forall(n: Nat) {
+                forall(i: Nat) {
+                    if i < n.suc {
+                        seq_intersection_contains_at(family, i, x)
+                        family(i).contains(x)
+                    }
+                }
+                range_indexed_intersection_contains_of_forall(n.suc, family, x)
+                range_indexed_intersection(n.suc, family).contains(x)
+                range_intersection_sequence(family, n) = range_indexed_intersection(n.suc, family)
+                range_intersection_sequence(family, n).contains(x)
+            }
+            seq_intersection_contains_of_forall(range_intersection_sequence(family), x)
+            u.contains(x)
+        }
+        u.contains(x) = v.contains(x)
+    }
+    set_ext(u, v)
+}
+
 /// The pointwise image of a sequence has union equal to the image of the union.
 theorem seq_union_set_image[T, U](seq: Nat -> Set[T], f: T -> U) {
     seq_union(set_image_seq(seq, f)) = set_image(seq_union(seq), f)
@@ -4153,6 +4245,63 @@ theorem seq_union_nat_lt_set_universal {
     }
 
     set_ext(u, v)
+}
+
+/// The image of `{0, 1, ..., k - 1}` under a natural-number function.
+define image_of_range(p: Nat -> Nat, k: Nat) -> Set[Nat] {
+    set_image(nat_lt_set(k), p)
+}
+
+/// The image of a finite initial segment agrees with the generic set image construction.
+theorem image_of_range_eq_set_image(p: Nat -> Nat, k: Nat) {
+    image_of_range(p, k) = set_image(nat_lt_set(k), p)
+}
+
+/// If `p` is injective, the image sequence of initial segments is increasing.
+theorem image_of_range_increasing(p: Nat -> Nat) {
+    is_injective(p) implies set_sequence_is_increasing(image_of_range(p))
+} by {
+    if is_injective(p) {
+        forall(k: Nat) {
+            image_of_range_eq_set_image(p, k)
+            image_of_range_eq_set_image(p, k.suc)
+            nat_lt_set_subset_suc(k)
+            set_image_monotone(nat_lt_set(k), nat_lt_set(k.suc), p)
+            image_of_range(p, k).subset(image_of_range(p, k.suc))
+        }
+        is_increasing(image_of_range(p))
+        set_sequence_is_increasing(image_of_range(p))
+    }
+}
+
+/// The union of the image sequence is the image of the universal set.
+theorem image_of_range_union_eq_universal_image(p: Nat -> Nat) {
+    seq_union(image_of_range(p)) = set_image(Set[Nat].universal_set, p)
+} by {
+    forall(k: Nat) {
+        image_of_range_eq_set_image(p, k)
+        set_image_seq(nat_lt_set, p, k) = set_image(nat_lt_set(k), p)
+        image_of_range(p, k) = set_image_seq(nat_lt_set, p, k)
+    }
+    function_extensionality(image_of_range(p), set_image_seq(nat_lt_set, p))
+    seq_union(image_of_range(p)) = seq_union(set_image_seq(nat_lt_set, p))
+    seq_union_set_image(nat_lt_set, p)
+    seq_union(image_of_range(p)) = set_image(seq_union(nat_lt_set), p)
+    seq_union_nat_lt_set_universal
+    seq_union(image_of_range(p)) = set_image(Set[Nat].universal_set, p)
+}
+
+/// If `p` is surjective, the image sequence of initial segments has universal union.
+theorem image_of_range_union_universal(p: Nat -> Nat) {
+    is_surjective(p) implies seq_union(image_of_range(p)) = Set[Nat].universal_set
+} by {
+    if is_surjective(p) {
+        image_of_range_union_eq_universal_image(p)
+        seq_union(image_of_range(p)) = set_image(Set[Nat].universal_set, p)
+        set_image_universal_of_surjective(p)
+        set_image(Set[Nat].universal_set, p) = Set[Nat].universal_set
+        seq_union(image_of_range(p)) = Set[Nat].universal_set
+    }
 }
 
 theorem seq_union_complement_eq_intersection_complement[T](s: Nat -> Set[T]) {

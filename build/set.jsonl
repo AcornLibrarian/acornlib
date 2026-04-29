@@ -828,36 +828,36 @@
 {"goal":"b(i).contains(x)","proof":[]}
 {"goal":"range_indexed_intersection[K](n, b).contains(x)","proof":["let w0: Nat satisfy { w0 < n and not x ∈ b(w0) }","function(x0: Nat) { not x0 < n or x ∈ b(x0) }(w0)"]}
 {"goal":"range_indexed_intersection_monotone","proof":["function[T0](x0: Set[T0], x1: Set[T0]) { forall(x2: T0) { not x2 ∈ x0 or x2 ∈ x1 } = x0 ⊂ x1 }[K](range_indexed_intersection[K](n, a), range_indexed_intersection[K](n, b))","let w0: K satisfy { w0 ∈ range_indexed_intersection[K](n, a) and not w0 ∈ range_indexed_intersection[K](n, b) }","let w1: Nat satisfy { w1 < n and not a(w1) ⊂ b(w1) }","function(x0: Nat) { not x0 < n or a(x0) ⊂ b(x0) }(w1)"]}
-{"goal":"exists(k0: Nat) { k0 < n and family(k0).c.contains(x) }","proof":["not x ∈ range_indexed_union[K](n, function(x0: Nat) { family(x0).c })"]}
-{"goal":"not family(i).contains(x)","proof":["not x ∈ family(i).c","x ∈ family(i).c"]}
+{"goal":"exists(k0: Nat) { k0 < n and family(k0).c.contains(x) }","proof":[]}
+{"goal":"not family(i).contains(x)","proof":[]}
 {"goal":"family(i).contains(x)","proof":[]}
 {"goal":"false","proof":[]}
-{"goal":"not range_indexed_intersection[K](n, family).contains(x)","proof":["false = true"]}
-{"goal":"v.contains(x)","proof":["function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c != x1 ∈ x0 }[K](range_indexed_intersection[K](n, family), x)","not x ∈ range_indexed_intersection[K](n, family).c","function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c or x1 ∈ x0 }[K](range_indexed_intersection[K](n, family), x)"]}
-{"goal":"not range_indexed_intersection[K](n, family).contains(x)","proof":["function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c != x1 ∈ x0 }[K](range_indexed_intersection[K](n, family), x)","function[T0](x0: Set[T0], x1: T0) { not x1 ∈ x0.c or not x1 ∈ x0 }[K](range_indexed_intersection[K](n, family), x)","x ∈ range_indexed_intersection[K](n, family).c","not x ∈ range_indexed_intersection[K](n, family).c"]}
-{"goal":"family(i).contains(x)","proof":["function(x0: Nat) { not (x0 < n and not x ∈ family(x0)) }(i)","function(x0: Nat) { not x0 < n or x ∈ family(x0) }(i)"]}
-{"goal":"r.contains(x)","proof":["not forall(x0: Nat) { not x0 < n or x ∈ family(x0) }"]}
+{"goal":"not range_indexed_intersection[K](n, family).contains(x)","proof":[]}
+{"goal":"v.contains(x)","proof":["function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c != x1 ∈ x0 }[K](range_indexed_intersection[K](n, family), x)"]}
+{"goal":"not range_indexed_intersection[K](n, family).contains(x)","proof":["function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c != x1 ∈ x0 }[K](range_indexed_intersection[K](n, family), x)"]}
+{"goal":"family(i).contains(x)","proof":["function(x0: Nat) { not (x0 < n and not x ∈ family(x0)) }(i)"]}
+{"goal":"r.contains(x)","proof":[]}
 {"goal":"false","proof":[]}
-{"goal":"exists(k0: Nat) { k0 < n and not family(k0).contains(x) }","proof":["false = true"]}
-{"goal":"family(i).c.contains(x)","proof":["not x ∈ family(i)","x ∈ family(i)"]}
+{"goal":"exists(k0: Nat) { k0 < n and not family(k0).contains(x) }","proof":[]}
+{"goal":"family(i).c.contains(x)","proof":[]}
 {"goal":"u.contains(x)","proof":[]}
 {"goal":"u.contains(x) = v.contains(x)","proof":[]}
-{"goal":"range_indexed_union_complement_eq_intersection_complement","proof":["function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](range_indexed_intersection[K](n, family).c)","function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](range_indexed_union[K](n, function(x1: Nat) { family(x1).c }))","v.contains = u.contains"]}
-{"goal":"family(i).c.contains(x)","proof":["not x ∈ range_indexed_intersection[K](n, function(x0: Nat) { family(x0).c }) or not i < n","not x ∈ range_indexed_intersection[K](n, function(x1: Nat) { family(x1).c })","x ∈ range_indexed_intersection[K](n, function(x2: Nat) { family(x2).c })"]}
+{"goal":"range_indexed_union_complement_eq_intersection_complement","proof":["function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](range_indexed_intersection[K](n, family).c)","function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](range_indexed_union[K](n, function(x1: Nat) { family(x1).c }))"]}
+{"goal":"family(i).c.contains(x)","proof":[]}
 {"goal":"not family(i).contains(x)","proof":[]}
 {"goal":"exists(k0: Nat) { k0 < n and family(k0).contains(x) }","proof":[]}
-{"goal":"not family(i).contains(x)","proof":["function(x0: Nat) { not x ∈ family(x0) or not x0 < n }(i)","not i < n","i < n"]}
+{"goal":"not family(i).contains(x)","proof":["function(x0: Nat) { not x ∈ family(x0) or not x0 < n }(i)"]}
 {"goal":"false","proof":[]}
 {"goal":"not range_indexed_union[K](n, family).contains(x)","proof":[]}
-{"goal":"v.contains(x)","proof":["function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c != x1 ∈ x0 }[K](range_indexed_union[K](n, family), x)","not x ∈ range_indexed_union[K](n, family).c","function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c or x1 ∈ x0 }[K](range_indexed_union[K](n, family), x)"]}
-{"goal":"not range_indexed_union[K](n, family).contains(x)","proof":["function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c != x1 ∈ x0 }[K](range_indexed_union[K](n, family), x)","function[T0](x0: Set[T0], x1: T0) { not x1 ∈ x0.c or not x1 ∈ x0 }[K](range_indexed_union[K](n, family), x)","x ∈ range_indexed_union[K](n, family).c","not x ∈ range_indexed_union[K](n, family).c"]}
+{"goal":"v.contains(x)","proof":["function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c != x1 ∈ x0 }[K](range_indexed_union[K](n, family), x)"]}
+{"goal":"not range_indexed_union[K](n, family).contains(x)","proof":["function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c != x1 ∈ x0 }[K](range_indexed_union[K](n, family), x)"]}
 {"goal":"range_indexed_union[K](n, family).contains(x)","proof":[]}
 {"goal":"false","proof":[]}
-{"goal":"not family(i).contains(x)","proof":["false = true"]}
+{"goal":"not family(i).contains(x)","proof":[]}
 {"goal":"family(i).c.contains(x)","proof":[]}
-{"goal":"u.contains(x)","proof":["not x ∈ range_indexed_intersection[K](n, function(x0: Nat) { family(x0).c })","let w0: Nat satisfy { w0 < n and not x ∈ family(w0).c }","function(x0: Nat) { not x0 < n or x ∈ family(x0).c }(w0)","w0 < n and not x ∈ family(w0).c","x ∈ family(w0).c"]}
+{"goal":"u.contains(x)","proof":["not x ∈ range_indexed_intersection[K](n, function(x0: Nat) { family(x0).c })","let w0: Nat satisfy { w0 < n and not x ∈ family(w0).c }","function(x0: Nat) { not x0 < n or x ∈ family(x0).c }(w0)"]}
 {"goal":"u.contains(x) = v.contains(x)","proof":[]}
-{"goal":"range_indexed_intersection_complement_eq_union_complement","proof":["function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](range_indexed_union[K](n, family).c)","function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](range_indexed_intersection[K](n, function(x1: Nat) { family(x1).c }))","v.contains = u.contains"]}
+{"goal":"range_indexed_intersection_complement_eq_union_complement","proof":["function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](range_indexed_union[K](n, family).c)","function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](range_indexed_intersection[K](n, function(x1: Nat) { family(x1).c }))"]}
 {"goal":"exists(k0: Nat) { k0 < m and family(k0).contains(x) }","proof":[]}
 {"goal":"i < n","proof":["function(x0: Nat, x1: Nat, x2: Nat) { not x0 < x1 or not x1 <= x2 or x0 < x2 }(i, m, n)"]}
 {"goal":"range_indexed_union[K](n, family).contains(x)","proof":[]}
@@ -994,7 +994,7 @@
 {"goal":"seq_union[T](s).contains(x)","proof":["function[T0, T1](x0: T0 -> Set[T1], x1: T1) { not exists(k0: T0) { x1 ∈ x0(k0) } or or_family[T1, T0](x0, x1) }[Nat, T](s, x)","function[T0, T1](x0: T1 -> Set[T0]) { Set.new[T0](or_family[T0, T1](x0)) = union_family[T0, T1](x0) }[T, Nat](s)","function[T0](x0: T0 -> Bool, x1: T0) { x1 ∈ Set.new[T0](x0) = x0(x1) }[T](or_family[T, Nat](s), x)","function[T0](x0: Nat -> Set[T0]) { union_family[T0, Nat](x0) = seq_union[T0](x0) }[T](s)","function[T0, T1](x0: T1 -> Set[T0], x1: T1, x2: T0) { not x2 ∈ x0(x1) or or_family[T0, T1](x0, x2) }[T, Nat](s, i, x)"]}
 {"goal":"seq_union_contains","proof":["function[T0](x0: Set[T0], x1: Set[T0]) { forall(x2: T0) { not x2 ∈ x0 or x2 ∈ x1 } = x0 ⊂ x1 }[T](s(i), seq_union[T](s))","function[T0](x0: Set[T0], x1: Set[T0]) { x0 ⊃ x1 = x1 ⊂ x0 }[T](seq_union[T](s), s(i))","not s(i) ⊂ seq_union[T](s)","exists(k0: T) { k0 ∈ s(i) and not k0 ∈ seq_union[T](s) }","let w10: T satisfy { w10 ∈ s(i) and not w10 ∈ seq_union[T](s) }","function(x0: T) { not x0 ∈ s(i) or x0 ∈ seq_union[T](s) }(w10)"]}
 {"goal":"exists(k0: Nat) { k0 < n.suc and family(k0).contains(x) }","proof":[]}
-{"goal":"range_indexed_union[K](n, family).contains(x)","proof":["not x ∈ family(i) or not i < n","not x ∈ family(i)","x ∈ family(i)"]}
+{"goal":"range_indexed_union[K](n, family).contains(x)","proof":[]}
 {"goal":"v.contains(x)","proof":[]}
 {"goal":"i = n","proof":["function(x0: Nat, x1: Nat) { not x0 < x1.suc or x0 < x1 or x0 = x1 }(i, n)"]}
 {"goal":"family(n).contains(x)","proof":[]}
@@ -1007,7 +1007,7 @@
 {"goal":"u.contains(x)","proof":[]}
 {"goal":"n < n.suc","proof":["function(x0: Nat) { x0 < x0.suc }(n)"]}
 {"goal":"u.contains(x)","proof":[]}
-{"goal":"not range_indexed_union[K](n, family).contains(x)","proof":["x ∈ u"]}
+{"goal":"not range_indexed_union[K](n, family).contains(x)","proof":[]}
 {"goal":"not family(n).contains(x)","proof":[]}
 {"goal":"false","proof":[]}
 {"goal":"u.contains(x)","proof":[]}
@@ -1024,7 +1024,7 @@
 {"goal":"family(i).contains(x)","proof":[]}
 {"goal":"i = n","proof":["function(x0: Nat, x1: Nat) { not x0 < x1.suc or x0 < x1 or x0 = x1 }(i, n)"]}
 {"goal":"family(i).contains(x)","proof":[]}
-{"goal":"u.contains(x)","proof":["not x ∈ range_indexed_intersection[K](n.suc, family)","let w0: Nat satisfy { w0 < n.suc and not x ∈ family(w0) }","function(x0: Nat) { not x0 < n.suc or x ∈ family(x0) }(w0)","not x ∈ family(w0)","w0 < n.suc","not w0 < n.suc"]}
+{"goal":"u.contains(x)","proof":["not x ∈ range_indexed_intersection[K](n.suc, family)","let w0: Nat satisfy { w0 < n.suc and not x ∈ family(w0) }","function(x0: Nat) { not x0 < n.suc or x ∈ family(x0) }(w0)"]}
 {"goal":"u.contains(x) = v.contains(x)","proof":[]}
 {"goal":"range_indexed_intersection_suc_eq_intersection","proof":["function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](range_indexed_intersection[K](n.suc, family))","function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](range_indexed_intersection[K](n, family) ∩ family(n))"]}
 {"goal":"i <= n","proof":["function(x0: Nat, x1: Nat) { not x0 < x1 or x0.suc <= x1 }(i, n.suc)","function(x0: Nat, x1: Nat) { not x0.suc <= x1.suc or x0 <= x1 }(i, n)"]}
@@ -1043,12 +1043,35 @@
 {"goal":"family(n).contains(x)","proof":[]}
 {"goal":"range_indexed_intersection_suc_subset_family","proof":["function[T0](x0: Set[T0], x1: Set[T0]) { forall(x2: T0) { not x2 ∈ x0 or x2 ∈ x1 } = x0 ⊂ x1 }[K](range_indexed_intersection[K](n.suc, family), family(n))","let w0: K satisfy { w0 ∈ range_indexed_intersection[K](n.suc, family) and not w0 ∈ family(n) }","function(x0: K) { not x0 ∈ range_indexed_intersection[K](n.suc, family) or x0 ∈ family(n) }(w0)"]}
 {"goal":"range_indexed_intersection_suc_of_decreasing","proof":["function[T0](x0: Nat -> Set[T0], x1: Nat) { not is_decreasing[T0](x0) or x0(x1) ⊂ range_indexed_intersection[T0](x1.suc, x0) }[K](family, n)","function[T0](x0: Nat, x1: Nat -> Set[T0]) { range_indexed_intersection[T0](x0.suc, x1) ⊂ x1(x0) }[K](n, family)"]}
-{"goal":"exists(k0: Nat) { k0 < n and family(k0).contains(x) }","proof":["not x ∈ range_indexed_union[K](n, family)"]}
+{"goal":"exists(k0: Nat) { k0 < n and family(k0).contains(x) }","proof":[]}
 {"goal":"seq_union[K](family).contains(x)","proof":[]}
 {"goal":"range_indexed_union_subset_seq_union","proof":["function[T0](x0: Set[T0], x1: Set[T0]) { forall(x2: T0) { not x2 ∈ x0 or x2 ∈ x1 } = x0 ⊂ x1 }[K](range_indexed_union[K](n, family), seq_union[K](family))","let w0: K satisfy { w0 ∈ range_indexed_union[K](n, family) and not w0 ∈ seq_union[K](family) }","function(x0: K) { not x0 ∈ range_indexed_union[K](n, family) or x0 ∈ seq_union[K](family) }(w0)"]}
 {"goal":"family(i).contains(x)","proof":[]}
 {"goal":"range_indexed_intersection[K](n, family).contains(x)","proof":["let w0: Nat satisfy { w0 < n and not x ∈ family(w0) }","function(x0: Nat) { not x0 < n or x ∈ family(x0) }(w0)"]}
 {"goal":"seq_intersection_subset_range_indexed_intersection","proof":["function[T0](x0: Set[T0], x1: Set[T0]) { forall(x2: T0) { not x2 ∈ x0 or x2 ∈ x1 } = x0 ⊂ x1 }[K](seq_intersection[K](family), range_indexed_intersection[K](n, family))","let w0: K satisfy { w0 ∈ seq_intersection[K](family) and not w0 ∈ range_indexed_intersection[K](n, family) }","function(x0: K) { not x0 ∈ seq_intersection[K](family) or x0 ∈ range_indexed_intersection[K](n, family) }(w0)"]}
+{"goal":"exists(k0: Nat) { range_union_sequence[K](family, k0).contains(x) }","proof":["not x ∈ seq_union[K](range_union_sequence[K](family))"]}
+{"goal":"range_union_sequence[K](family, n) = range_indexed_union[K](n.suc, family)","proof":["function[T0](x0: Nat, x1: Nat -> Set[T0]) { range_indexed_union[T0](x0.suc, x1) = range_union_sequence[T0](x1, x0) }[K](n, family)"]}
+{"goal":"exists(k0: Nat) { k0 < n.suc and family(k0).contains(x) }","proof":["not x ∈ range_indexed_union[K](n.suc, family)"]}
+{"goal":"v.contains(x)","proof":[]}
+{"goal":"exists(k0: Nat) { family(k0).contains(x) }","proof":["not x ∈ seq_union[K](family)"]}
+{"goal":"i < i.suc","proof":["function(x0: Nat) { x0 < x0.suc }(i)"]}
+{"goal":"range_union_sequence[K](family, i) = range_indexed_union[K](i.suc, family)","proof":["function[T0](x0: Nat, x1: Nat -> Set[T0]) { range_indexed_union[T0](x0.suc, x1) = range_union_sequence[T0](x1, x0) }[K](i, family)"]}
+{"goal":"range_union_sequence[K](family, i).contains(x)","proof":["x ∈ range_indexed_union[K](i.suc, family)"]}
+{"goal":"u.contains(x)","proof":[]}
+{"goal":"u.contains(x) = v.contains(x)","proof":[]}
+{"goal":"seq_union_range_union_sequence_eq","proof":["function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](seq_union[K](family))","function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](seq_union[K](range_union_sequence[K](family)))","v.contains = u.contains"]}
+{"goal":"range_intersection_sequence[K](family, i).contains(x)","proof":["not x ∈ seq_intersection[K](range_intersection_sequence[K](family))"]}
+{"goal":"range_intersection_sequence[K](family, i) = range_indexed_intersection[K](i.suc, family)","proof":["function[T0](x0: Nat, x1: Nat -> Set[T0]) { range_indexed_intersection[T0](x0.suc, x1) = range_intersection_sequence[T0](x1, x0) }[K](i, family)"]}
+{"goal":"i < i.suc","proof":["function(x0: Nat) { x0 < x0.suc }(i)"]}
+{"goal":"family(i).contains(x)","proof":[]}
+{"goal":"v.contains(x)","proof":["not x ∈ seq_intersection[K](family)","let w0: Nat satisfy { not x ∈ family(w0) }","function(x0: Nat) { x ∈ family(x0) }(w0)"]}
+{"goal":"family(i).contains(x)","proof":["not x ∈ seq_intersection[K](family)"]}
+{"goal":"range_indexed_intersection[K](n.suc, family).contains(x)","proof":["let w0: Nat satisfy { w0 < n.suc and not x ∈ family(w0) }","function[T0](x0: Nat -> Set[T0], x1: T0, x2: Nat) { not x1 ∈ seq_intersection[T0](x0) or x1 ∈ x0(x2) }[K](family, x, w0)","w0 < n.suc and not x ∈ family(w0)","x ∈ seq_intersection[K](family)","not x ∈ seq_intersection[K](family)"]}
+{"goal":"range_intersection_sequence[K](family, n) = range_indexed_intersection[K](n.suc, family)","proof":["function[T0](x0: Nat, x1: Nat -> Set[T0]) { range_indexed_intersection[T0](x0.suc, x1) = range_intersection_sequence[T0](x1, x0) }[K](n, family)"]}
+{"goal":"range_intersection_sequence[K](family, n).contains(x)","proof":[]}
+{"goal":"u.contains(x)","proof":["not x ∈ seq_intersection[K](range_intersection_sequence[K](family))","let w0: Nat satisfy { not x ∈ range_intersection_sequence[K](family, w0) }","function(x0: Nat) { x ∈ range_intersection_sequence[K](family, x0) }(w0)"]}
+{"goal":"u.contains(x) = v.contains(x)","proof":[]}
+{"goal":"seq_intersection_range_intersection_sequence_eq","proof":["function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](seq_intersection[K](family))","function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[K](seq_intersection[K](range_intersection_sequence[K](family)))","v.contains = u.contains"]}
 {"goal":"u_simp.contains(y)","proof":["function[T0, T1, T2](x0: (T0, T1) -> T2, x1: T1, x2: T0) { lib(util).flip[T0, T1, T2](x0, x1, x2) = x0(x2, x1) }[Set[U], U, Bool](Set.contains[U], y, u)","function[T0, T1, T2](x0: (T0, T1) -> T2, x1: T1, x2: T0) { lib(util).flip[T0, T1, T2](x0, x1, x2) = x0(x2, x1) }[Set[U], U, Bool](Set.contains[U], y, u_simp)","function[T0](x0: Nat -> Set[T0]) { union_family[T0, Nat](x0) = seq_union[T0](x0) }[U](set_image_seq[T, U](seq, f))"]}
 {"goal":"exists(k0: Nat) { set_image_seq[T, U](seq, f, k0).contains(y) }","proof":["function[T0, T1](x0: T0 -> Set[T1], x1: T1) { exists(k0: T0) { x1 ∈ x0(k0) } = or_family[T1, T0](x0, x1) }[Nat, U](set_image_seq[T, U](seq, f), y)","function[T0, T1](x0: T1 -> Set[T0]) { Set.new[T0](or_family[T0, T1](x0)) = union_family[T0, T1](x0) }[U, Nat](set_image_seq[T, U](seq, f))","function[T0](x0: T0 -> Bool, x1: T0) { x1 ∈ Set.new[T0](x0) = x0(x1) }[U](or_family[U, Nat](set_image_seq[T, U](seq, f)), y)"]}
 {"goal":"set_image_seq[T, U](seq, f, i) = set_image[T, U](seq(i), f)","proof":["function[T0, T1](x0: Nat -> Set[T0], x1: T0 -> T1, x2: Nat) { set_image_seq[T0, T1](x0, x1, x2) = set_image[T0, T1](x0(x2), x1) }[T, U](seq, f, i)"]}
@@ -1075,13 +1098,28 @@
 {"goal":"u.contains(n)","proof":["function[T0](x0: Set[T0], x1: T0, x2: Set[T0]) { (x1 ∈ x0 and not x1 ∈ x2) = x1 ∈ x0 ∖ x2 }[Nat](nat_lt_set(n.suc), n, u)","function[T0](x0: Set[T0], x1: T0, x2: Set[T0]) { not x1 ∈ x0 or x1 ∈ x0 ∖ x2 or x1 ∈ x2 }[Nat](nat_lt_set(n.suc), n, u)","function[T0](x0: Set[T0], x1: Set[T0]) { forall(x2: T0) { not x2 ∈ x0 or x2 ∈ x1 } = x0 ⊂ x1 }[Nat](nat_lt_set(n.suc), u)","function[T0](x0: Set[T0], x1: Set[T0]) { x0 ⊃ x1 = x1 ⊂ x0 }[Nat](u, nat_lt_set(n.suc))","function[T0](x0: Set[T0], x1: Set[T0]) { not x0 ⊂ x1 or forall(x2: T0) { not x2 ∈ x0 or x2 ∈ x1 } = true }[Nat](nat_lt_set(n.suc), u)","function[T0](x0: Set[T0], x1: Set[T0], x2: T0) { not x2 ∈ x0 ∖ x1 or (x2 ∈ x0 and not x2 ∈ x1) }[Nat](nat_lt_set(n.suc), u, n)","function[T0](x0: Set[T0], x1: T0, x2: Set[T0]) { not (x1 ∈ x0 and not x1 ∈ x2) or not x0 ⊂ x2 }[Nat](nat_lt_set(n.suc), n, u)"]}
 {"goal":"u.contains(n) = v.contains(n)","proof":[]}
 {"goal":"seq_union_nat_lt_set_universal","proof":["function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[Nat](Set.universal_set[Nat])","function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[Nat](seq_union[Nat](nat_lt_set))"]}
+{"goal":"image_of_range_eq_set_image","proof":["function(x0: Nat, x1: Nat -> Nat) { set_image[Nat, Nat](nat_lt_set(x0), x1) = image_of_range(x1, x0) }(k, p)"]}
+{"goal":"image_of_range(p, k).subset(image_of_range(p, k.suc))","proof":[]}
+{"goal":"is_increasing[Nat](image_of_range(p))","proof":["function[T0](x0: Nat -> Set[T0]) { forall(x1: Nat) { x0(x1) ⊂ x0(x1.suc) } = is_increasing[T0](x0) }[Nat](image_of_range(p))","let w0: Nat satisfy { not image_of_range(p, w0) ⊂ image_of_range(p, w0.suc) }","function(x0: Nat) { image_of_range(p, x0) ⊂ image_of_range(p, x0.suc) }(w0)"]}
+{"goal":"set_sequence_is_increasing[Nat](image_of_range(p))","proof":[]}
+{"goal":"image_of_range_increasing","proof":[]}
+{"goal":"set_image_seq(nat_lt_set, p, k) = set_image[Nat, Nat](nat_lt_set(k), p)","proof":["function[T0, T1](x0: Nat -> Set[T0], x1: T0 -> T1, x2: Nat) { set_image_seq[T0, T1](x0, x1, x2) = set_image[T0, T1](x0(x2), x1) }[Nat, Nat](nat_lt_set, p, k)"]}
+{"goal":"image_of_range(p, k) = set_image_seq(nat_lt_set, p, k)","proof":[]}
+{"goal":"seq_union[Nat](image_of_range(p)) = seq_union[Nat](set_image_seq[Nat, Nat](nat_lt_set, p))","proof":[]}
+{"goal":"seq_union[Nat](image_of_range(p)) = set_image[Nat, Nat](seq_union[Nat](nat_lt_set), p)","proof":[]}
+{"goal":"seq_union[Nat](image_of_range(p)) = set_image[Nat, Nat](Set.universal_set[Nat], p)","proof":[]}
+{"goal":"image_of_range_union_eq_universal_image","proof":[]}
+{"goal":"seq_union[Nat](image_of_range(p)) = set_image[Nat, Nat](Set.universal_set[Nat], p)","proof":[]}
+{"goal":"set_image[Nat, Nat](Set.universal_set[Nat], p) = Set.universal_set[Nat]","proof":["function[T0, T1](x0: T1 -> T0) { forall(x1: T0) { exists(k0: T1) { x0(k0) = x1 } } = is_surjective_fn[T1, T0](x0) }[Nat, Nat](p)","function[T0](x0: T0 -> T0) { forall(x1: T0) { exists(k0: T0) { x0(k0) = x1 } } = is_surjective[T0](x0) }[Nat](p)"]}
+{"goal":"seq_union[Nat](image_of_range(p)) = Set.universal_set[Nat]","proof":[]}
+{"goal":"image_of_range_union_universal","proof":[]}
 {"goal":"u_simp.contains(x)","proof":["function[T0, T1, T2](x0: (T0, T1) -> T2, x1: T1, x2: T0) { lib(util).flip[T0, T1, T2](x0, x1, x2) = x0(x2, x1) }[Set[T], T, Bool](Set.contains[T], x, u)","function[T0, T1, T2](x0: (T0, T1) -> T2, x1: T1, x2: T0) { lib(util).flip[T0, T1, T2](x0, x1, x2) = x0(x2, x1) }[Set[T], T, Bool](Set.contains[T], x, u_simp)","function[T0](x0: Nat -> Set[T0]) { union_family[T0, Nat](x0) = seq_union[T0](x0) }[T](sc)"]}
 {"goal":"exists(k0: Nat) { sc(k0).contains(x) }","proof":["function[T0, T1](x0: T1 -> Set[T0], x1: T0) { not or_family[T0, T1](x0, x1) or exists(k0: T1) { x1 ∈ x0(k0) } }[T, Nat](sc, x)","function[T0, T1](x0: T1 -> Set[T0]) { Set.new[T0](or_family[T0, T1](x0)) = union_family[T0, T1](x0) }[T, Nat](sc)","function[T0](x0: T0 -> Bool, x1: T0) { x1 ∈ Set.new[T0](x0) = x0(x1) }[T](or_family[T, Nat](sc), x)"]}
 {"goal":"sc(i) = s(i).c","proof":["function(x0: Nat) { seq_complement[T](s, x0) = sc(x0) }(i)","function[T0](x0: Nat -> Set[T0], x1: Nat) { seq_complement[T0](x0, x1) = x0(x1).c }[T](s, i)"]}
 {"goal":"s(i).c.contains(x)","proof":[]}
 {"goal":"not s(i).contains(x)","proof":["function[T0](x0: Set[T0]) { Set.new[T0](negate_fun[T0](x0.contains)) = x0.c }[T](s(i))","function[T0](x0: T0 -> Bool, x1: T0) { x1 ∈ Set.new[T0](x0) = x0(x1) }[T](negate_fun[T](s(i).contains), x)","function[T0](x0: T0 -> Bool, x1: T0) { negate_fun[T0](x0, x1) != x0(x1) }[T](s(i).contains, x)"]}
 {"goal":"not seq_intersection[T](s).contains(x)","proof":["function[T0, T1](x0: T1 -> Set[T0]) { Set.new[T0](and_family[T0, T1](x0)) = intersection_family[T0, T1](x0) }[T, Nat](s)","function[T0, T1](x0: T1 -> Set[T0], x1: T0, x2: T1) { not and_family[T0, T1](x0, x1) or x1 ∈ x0(x2) }[T, Nat](s, x, i)","function[T0](x0: T0 -> Bool, x1: T0) { x1 ∈ Set.new[T0](x0) = x0(x1) }[T](and_family[T, Nat](s), x)","function[T0](x0: Nat -> Set[T0]) { intersection_family[T0, Nat](x0) = seq_intersection[T0](x0) }[T](s)"]}
-{"goal":"v.contains(x)","proof":["function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c != x1 ∈ x0 }[T](seq_intersection[T](s), x)"]}
+{"goal":"v.contains(x)","proof":["function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c != x1 ∈ x0 }[T](seq_intersection[T](s), x)","not x ∈ seq_intersection[T](s).c","function[T0](x0: Set[T0], x1: T0) { x1 ∈ x0.c or x1 ∈ x0 }[T](seq_intersection[T](s), x)"]}
 {"goal":"not seq_intersection[T](s).contains(x)","proof":["function[T0](x0: Set[T0]) { Set.new[T0](negate_fun[T0](x0.contains)) = x0.c }[T](seq_intersection[T](s))","function[T0](x0: T0 -> Bool, x1: T0) { x1 ∈ Set.new[T0](x0) = x0(x1) }[T](negate_fun[T](seq_intersection[T](s).contains), x)","function[T0](x0: T0 -> Bool, x1: T0) { negate_fun[T0](x0, x1) != x0(x1) }[T](seq_intersection[T](s).contains, x)"]}
 {"goal":"si = si_simp","proof":["seq_intersection[T](s) != si_simp","function[T0](x0: Nat -> Set[T0]) { intersection_family[T0, Nat](x0) = seq_intersection[T0](x0) }[T](s)"]}
 {"goal":"not si_simp.contains(x)","proof":[]}
@@ -1090,7 +1128,7 @@
 {"goal":"sc(i) = s(i).c","proof":["function(x0: Nat) { seq_complement[T](s, x0) = sc(x0) }(i)","function[T0](x0: Nat -> Set[T0], x1: Nat) { seq_complement[T0](x0, x1) = x0(x1).c }[T](s, i)"]}
 {"goal":"sc(i).contains(x)","proof":[]}
 {"goal":"u_simp.contains(x)","proof":["function[T0, T1](x0: T0 -> Set[T1], x1: T1) { not exists(k0: T0) { x1 ∈ x0(k0) } or or_family[T1, T0](x0, x1) }[Nat, T](sc, x)","function[T0, T1](x0: T1 -> Set[T0]) { Set.new[T0](or_family[T0, T1](x0)) = union_family[T0, T1](x0) }[T, Nat](sc)","function[T0, T1, T2](x0: (T0, T1) -> T2, x1: T1, x2: T0) { lib(util).flip[T0, T1, T2](x0, x1, x2) = x0(x2, x1) }[Set[T], T, Bool](Set.contains[T], x, u)","function[T0, T1, T2](x0: (T0, T1) -> T2, x1: T1, x2: T0) { lib(util).flip[T0, T1, T2](x0, x1, x2) = x0(x2, x1) }[Set[T], T, Bool](Set.contains[T], x, u_simp)","function[T0](x0: T0 -> Bool, x1: T0) { x1 ∈ Set.new[T0](x0) = x0(x1) }[T](or_family[T, Nat](sc), x)","function[T0](x0: Nat -> Set[T0]) { union_family[T0, Nat](x0) = seq_union[T0](x0) }[T](sc)","seq_complement[T](s) = sc","function[T0, T1](x0: T1 -> Set[T0], x1: T1, x2: T0) { not x2 ∈ x0(x1) or or_family[T0, T1](x0, x2) }[T, Nat](sc, i, x)"]}
-{"goal":"u.contains(x)","proof":["function[T0, T1](x0: (T0, T1) -> Bool, x1: T1, x2: T0) { relation_converse[T0, T1](x0, x1, x2) = x0(x2, x1) }[Set[T], T](Set.contains[T], x, u_simp)","function[T0, T1](x0: (T0, T1) -> Bool, x1: T1, x2: T0) { relation_converse[T0, T1](x0, x1, x2) = x0(x2, x1) }[Set[T], T](Set.contains[T], x, u)","function[T0](x0: Nat -> Set[T0]) { union_family[T0, Nat](x0) = seq_union[T0](x0) }[T](sc)"]}
+{"goal":"u.contains(x)","proof":["function[T0, T1](x0: (T0, T1) -> Bool, x1: T1, x2: T0) { relation_converse[T0, T1](x0, x1, x2) = x0(x2, x1) }[Set[T], T](Set.contains[T], x, u_simp)","function[T0, T1](x0: (T0, T1) -> Bool, x1: T1, x2: T0) { relation_converse[T0, T1](x0, x1, x2) = x0(x2, x1) }[Set[T], T](Set.contains[T], x, u)","function[T0](x0: Nat -> Set[T0]) { union_family[T0, Nat](x0) = seq_union[T0](x0) }[T](sc)","seq_complement[T](s) = sc"]}
 {"goal":"u.contains(x) = v.contains(x)","proof":[]}
 {"goal":"seq_union_complement_eq_intersection_complement","proof":["seq_complement[T](s) = sc","function[T0](x0: Nat -> Set[T0]) { union_family[T0, Nat](x0) = seq_union[T0](x0) }[T](sc)","v.contains = u.contains","function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[T](seq_intersection[T](s).c)","function[T0](x0: Set[T0]) { Set.new[T0](x0.contains) = x0 }[T](union_family[T, Nat](sc))"]}
 {"goal":"u_simp.contains(x)","proof":["function[T0, T1, T2](x0: (T0, T1) -> T2, x1: T1, x2: T0) { lib(util).flip[T0, T1, T2](x0, x1, x2) = x0(x2, x1) }[Set[T], T, Bool](Set.contains[T], x, u)","function[T0, T1, T2](x0: (T0, T1) -> T2, x1: T1, x2: T0) { lib(util).flip[T0, T1, T2](x0, x1, x2) = x0(x2, x1) }[Set[T], T, Bool](Set.contains[T], x, u_simp)","function[T0](x0: Nat -> Set[T0]) { intersection_family[T0, Nat](x0) = seq_intersection[T0](x0) }[T](sc)"]}
@@ -1319,7 +1357,7 @@
 {"goal":"range_indexed_intersection[K](n, family).is_finite","proof":[]}
 {"goal":"range_indexed_intersection_is_finite_of_member_finite","proof":[]}
 {"goal":"a.is_finite","proof":[]}
-{"goal":"false","proof":["function[T0](x0: Set[T0]) { not x0.is_infinite or not x0.is_finite }[K](a)","a.is_infinite"]}
+{"goal":"false","proof":["function[T0](x0: Set[T0]) { not x0.is_infinite or not x0.is_finite }[K](a)"]}
 {"goal":"b.is_infinite","proof":["function[T0](x0: Set[T0]) { x0.is_infinite != x0.is_finite }[K](b)"]}
 {"goal":"superset_is_infinite_of_infinite","proof":[]}
 {"goal":"a.is_finite","proof":[]}
@@ -1368,7 +1406,7 @@
 {"goal":"head = f(head_preimage)","proof":[]}
 {"goal":"f(x) = f(head_preimage)","proof":[]}
 {"goal":"x = head_preimage","proof":[]}
-{"goal":"false","proof":["function[T0](x0: Set[T0], x1: T0) { not x1 ∈ x0.remove(x1) }[T](a, head_preimage)","head_preimage ∈ rest"]}
+{"goal":"false","proof":["function[T0](x0: Set[T0], x1: T0) { not x1 ∈ x0.remove(x1) }[T](a, head_preimage)"]}
 {"goal":"tail.contains(y)","proof":["function[T0](x0: List[T0], x1: T0, x2: T0, x3: List[T0]) { not x1 ∈ x0 or List.cons[T0](x2, x3) != x0 or x1 ∈ x3 or x1 = x2 }[U](List.cons(head, tail), y, head, tail)"]}
 {"goal":"tail.contains_set(set_image[T, U](rest, f))","proof":["function[T0](x0: Set[T0], x1: List[T0]) { forall(x2: T0) { not x2 ∈ x0 or x2 ∈ x1 } = x1.contains_set(x0) }[U](set_image[T, U](rest, f), tail)","let w0: U satisfy { w0 ∈ set_image[T, U](rest, f) and not w0 ∈ tail }","function(x0: U) { not x0 ∈ set_image[T, U](rest, f) or x0 ∈ tail }(w0)"]}
 {"goal":"exists(k0: List[T]) { k0.contains_set(rest) }","proof":["function(x0: List[U]) { forall(x1: Set[T]) { not x0.contains_set(set_image[T, U](x1, f)) or exists(k0: List[T]) { k0.contains_set(x1) } } = p(x0) }(tail)","function(x0: List[U]) { not p(x0) or forall(x1: Set[T]) { not x0.contains_set(set_image[T, U](x1, f)) or exists(k0: List[T]) { k0.contains_set(x1) } } = true }(tail)","function(x0: List[U], x1: Set[T]) { not (x0.contains_set(set_image[T, U](x1, f)) and forall(x2: List[T]) { not x2.contains_set(x1) }) or not p(x0) }(tail, rest)"]}
@@ -1564,7 +1602,7 @@
 {"goal":"difference_cardinality_is_of_disjoint","proof":[]}
 {"goal":"s.contains(x)","proof":[]}
 {"goal":"t.contains(x)","proof":["function[T0](x0: Set[T0], x1: Set[T0]) { forall(x2: T0) { not x2 ∈ x0 or x2 ∈ x1 } = x0 ⊂ x1 }[K](s, t)","x ∈ s and not x ∈ t","function[T0](x0: Set[T0], x1: Set[T0]) { not x0 ⊂ x1 or forall(x2: T0) { not x2 ∈ x0 or x2 ∈ x1 } = true }[K](s, t)","function[T0](x0: Set[T0], x1: T0, x2: Set[T0]) { not (x1 ∈ x0 and not x1 ∈ x2) or not x0 ⊂ x2 }[K](s, x, t)"]}
-{"goal":"false","proof":["function[T0](x0: Set[T0], x1: Set[T0], x2: T0) { not x2 ∈ x0 ∖ x1 or not x2 ∈ x1 }[K](s, t, x)"]}
+{"goal":"false","proof":[]}
 {"goal":"not s.difference(t).contains(x)","proof":[]}
 {"goal":"s.difference(t) = Set.empty_set[K]","proof":["let w0: K satisfy { w0 ∈ Set.empty_set[K] != w0 ∈ s ∖ t }","function(x0: K) { not x0 ∈ s ∖ t }(w0)","function[T0](x0: T0) { not x0 ∈ Set.empty_set[T0] }[K](w0)"]}
 {"goal":"s.difference(t).cardinality_is(Nat.0)","proof":[]}
