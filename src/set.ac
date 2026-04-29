@@ -3426,6 +3426,16 @@ define is_increasing[T](seq: Nat -> Set[T]) -> Bool {
     }
 }
 
+/// True if a sequence of sets is increasing.
+define set_sequence_is_increasing[T](seq: Nat -> Set[T]) -> Bool {
+    is_increasing(seq)
+}
+
+/// A sequence increasing in the set-sequence sense is increasing.
+theorem set_sequence_is_increasing_imp_is_increasing[T](seq: Nat -> Set[T]) {
+    set_sequence_is_increasing(seq) implies is_increasing(seq)
+}
+
 /// The union of all sets in a sequence.
 define seq_union[T](seq: Nat -> Set[T]) -> Set[T] {
     union_family(seq)
@@ -3479,6 +3489,17 @@ theorem seq_complement_decreasing_of_step_subset[T](seq: Nat -> Set[T]) {
 } by {
     if forall(i: Nat) { seq(i).subset(seq(i.suc)) } {
         is_increasing(seq)
+        seq_complement_is_decreasing_of_increasing(seq)
+        is_decreasing(seq_complement(seq))
+    }
+}
+
+/// The complement of an increasing set sequence is decreasing.
+theorem set_sequence_complement_decreasing_of_increasing[T](seq: Nat -> Set[T]) {
+    set_sequence_is_increasing(seq) implies is_decreasing(seq_complement(seq))
+} by {
+    if set_sequence_is_increasing(seq) {
+        set_sequence_is_increasing_imp_is_increasing(seq)
         seq_complement_is_decreasing_of_increasing(seq)
         is_decreasing(seq_complement(seq))
     }

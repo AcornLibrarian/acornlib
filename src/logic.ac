@@ -1,0 +1,361 @@
+from functions import Inhabited
+
+/// True if a predicate has exactly one witness.
+define exists_unique[T](p: T -> Bool) -> Bool {
+    exists(x: T) {
+        p(x) and forall(y: T) {
+            p(y) implies y = x
+        }
+    }
+}
+
+/// Unique existence gives ordinary existence.
+theorem exists_unique_exists[T](p: T -> Bool) {
+    exists_unique(p) implies exists(x: T) {
+        p(x)
+    }
+} by {
+    if exists_unique(p) {
+        let x: T satisfy {
+            p(x) and forall(y: T) {
+                p(y) implies y = x
+            }
+        }
+        exists(w: T) {
+            w = x and p(w)
+        }
+    }
+}
+
+/// The chosen witness of a unique existence statement satisfies the predicate.
+theorem exists_unique_witness_property[T](p: T -> Bool, x: T) {
+    exists_unique(p) and p(x) implies p(x)
+}
+
+/// Two witnesses of a uniquely witnessed predicate are equal.
+theorem exists_unique_witness_eq[T](p: T -> Bool, x: T, y: T) {
+    exists_unique(p) and p(x) and p(y) implies x = y
+} by {
+    if exists_unique(p) and p(x) and p(y) {
+        let z: T satisfy {
+            p(z) and forall(w: T) {
+                p(w) implies w = z
+            }
+        }
+        x = z
+        y = z
+        x = y
+    }
+}
+
+/// A witness together with uniqueness gives unique existence.
+theorem exists_unique_of_witness[T](p: T -> Bool, x: T) {
+    p(x) and (forall(y: T) { p(y) implies y = x }) implies exists_unique(p)
+} by {
+    if p(x) and forall(y: T) { p(y) implies y = x } {
+        exists(w: T) {
+            w = x and p(w) and forall(y: T) {
+                p(y) implies y = w
+            }
+        }
+    }
+}
+
+/// Existence and pairwise uniqueness give unique existence.
+theorem exists_unique_of_exists_and_unique[T](p: T -> Bool) {
+    exists(x: T) { p(x) } and
+    (forall(x: T, y: T) { p(x) and p(y) implies x = y }) implies
+    exists_unique(p)
+} by {
+    if exists(x: T) { p(x) } and
+        forall(x: T, y: T) { p(x) and p(y) implies x = y } {
+        let x: T satisfy {
+            p(x)
+        }
+        forall(y: T) {
+            if p(y) {
+                x = y
+                y = x
+            }
+        }
+        exists_unique_of_witness(p, x)
+        exists_unique(p)
+    }
+}
+
+/// A uniquely witnessed predicate has pairwise uniqueness of witnesses.
+theorem exists_unique_imp_pairwise_unique[T](p: T -> Bool) {
+    exists_unique(p) implies forall(x: T, y: T) {
+        p(x) and p(y) implies x = y
+    }
+} by {
+    if exists_unique(p) {
+        forall(x: T, y: T) {
+            if p(x) and p(y) {
+                exists_unique_witness_eq(p, x, y)
+                x = y
+            }
+        }
+    }
+}
+
+/// Equivalent predicates have the same unique-existence truth value.
+theorem exists_unique_congr[T](p: T -> Bool, q: T -> Bool) {
+    (forall(x: T) { p(x) = q(x) }) implies exists_unique(p) = exists_unique(q)
+} by {
+    if forall(x: T) { p(x) = q(x) } {
+        if exists_unique(p) {
+            let x: T satisfy {
+                p(x) and forall(y: T) {
+                    p(y) implies y = x
+                }
+            }
+            q(x)
+            forall(y: T) {
+                if q(y) {
+                    p(y)
+                    y = x
+                }
+            }
+            exists_unique_of_witness(q, x)
+            exists_unique(q)
+        }
+        if exists_unique(q) {
+            let x: T satisfy {
+                q(x) and forall(y: T) {
+                    q(y) implies y = x
+                }
+            }
+            p(x)
+            forall(y: T) {
+                if p(y) {
+                    q(y)
+                    y = x
+                }
+            }
+            exists_unique_of_witness(p, x)
+            exists_unique(p)
+        }
+        exists_unique(p) = exists_unique(q)
+    }
+}
+
+/// A selected witness of a uniquely witnessed predicate, with a default value otherwise.
+let choose_unique[T: Inhabited](p: T -> Bool) -> result: T satisfy {
+    exists_unique(p) implies p(result)
+} by {
+    if exists_unique(p) {
+        exists_unique_exists(p)
+        let x: T satisfy {
+            p(x)
+        }
+        p(x)
+    } else {
+        let x: T satisfy {
+            true
+        }
+    }
+}
+
+/// The selected unique witness satisfies the predicate when unique existence holds.
+theorem choose_unique_property[T: Inhabited](p: T -> Bool) {
+    exists_unique(p) implies p(choose_unique(p))
+}
+
+/// The selected unique witness equals any witness of the predicate.
+theorem choose_unique_eq_of_property[T: Inhabited](p: T -> Bool, x: T) {
+    exists_unique(p) and p(x) implies choose_unique(p) = x
+} by {
+    if exists_unique(p) and p(x) {
+        choose_unique_property(p)
+        exists_unique_witness_eq(p, choose_unique(p), x)
+        choose_unique(p) = x
+    }
+}
+
+/// A predicate with an explicit unique witness chooses that witness.
+theorem choose_unique_of_witness[T: Inhabited](p: T -> Bool, x: T) {
+    p(x) and (forall(y: T) { p(y) implies y = x }) implies choose_unique(p) = x
+} by {
+    if p(x) and forall(y: T) { p(y) implies y = x } {
+        exists_unique_of_witness(p, x)
+        choose_unique_eq_of_property(p, x)
+        choose_unique(p) = x
+    }
+}
+
+/// Equivalent uniquely witnessed predicates choose the same witness.
+theorem choose_unique_congr[T: Inhabited](p: T -> Bool, q: T -> Bool) {
+    (forall(x: T) { p(x) = q(x) }) and exists_unique(p) implies
+    choose_unique(p) = choose_unique(q)
+} by {
+    if forall(x: T) { p(x) = q(x) } and exists_unique(p) {
+        exists_unique_congr(p, q)
+        exists_unique(q)
+        choose_unique_property(p)
+        p(choose_unique(p))
+        q(choose_unique(p))
+        choose_unique_eq_of_property(q, choose_unique(p))
+        choose_unique(q) = choose_unique(p)
+        choose_unique(p) = choose_unique(q)
+    }
+}
+
+/// A paired existential gives a nested existential.
+theorem exists_pair_imp_nested[T, U](p: (T, U) -> Bool) {
+    exists(x: T, y: U) {
+        p(x, y)
+    } implies exists(x: T) {
+        exists(y: U) {
+            p(x, y)
+        }
+    }
+} by {
+    if exists(x: T, y: U) { p(x, y) } {
+        let (x: T, y: U) satisfy {
+            p(x, y)
+        }
+        exists(a: T) {
+            a = x and exists(b: U) {
+                b = y and p(a, b)
+            }
+        }
+    }
+}
+
+/// A nested existential gives a paired existential.
+theorem exists_nested_imp_pair[T, U](p: (T, U) -> Bool) {
+    exists(x: T) {
+        exists(y: U) {
+            p(x, y)
+        }
+    } implies exists(x: T, y: U) {
+        p(x, y)
+    }
+} by {
+    if exists(x: T) { exists(y: U) { p(x, y) } } {
+        let x: T satisfy {
+            exists(y: U) {
+                p(x, y)
+            }
+        }
+        let y: U satisfy {
+            p(x, y)
+        }
+        exists(a: T, b: U) {
+            a = x and b = y and p(a, b)
+        }
+    }
+}
+
+/// Paired and nested existential forms are equivalent.
+theorem exists_pair_eq_nested[T, U](p: (T, U) -> Bool) {
+    exists(x: T, y: U) { p(x, y) } =
+    exists(x: T) { exists(y: U) { p(x, y) } }
+} by {
+    if exists(x: T, y: U) { p(x, y) } {
+        exists_pair_imp_nested(p)
+        exists(x: T) { exists(y: U) { p(x, y) } }
+    }
+    if exists(x: T) { exists(y: U) { p(x, y) } } {
+        exists_nested_imp_pair(p)
+        exists(x: T, y: U) { p(x, y) }
+    }
+    exists(x: T, y: U) { p(x, y) } =
+    exists(x: T) { exists(y: U) { p(x, y) } }
+}
+
+/// A paired existential can swap the order of its witnesses.
+theorem exists_pair_swap[T, U](p: (T, U) -> Bool) {
+    exists(x: T, y: U) {
+        p(x, y)
+    } implies exists(y: U, x: T) {
+        p(x, y)
+    }
+} by {
+    if exists(x: T, y: U) { p(x, y) } {
+        let (x: T, y: U) satisfy {
+            p(x, y)
+        }
+        exists(b: U, a: T) {
+            b = y and a = x and p(a, b)
+        }
+    }
+}
+
+/// A triple existential gives nested existential witnesses.
+theorem exists_triple_imp_nested[T, U, V](p: (T, U, V) -> Bool) {
+    exists(x: T, y: U, z: V) {
+        p(x, y, z)
+    } implies exists(x: T) {
+        exists(y: U) {
+            exists(z: V) {
+                p(x, y, z)
+            }
+        }
+    }
+} by {
+    if exists(x: T, y: U, z: V) { p(x, y, z) } {
+        let (x: T, y: U, z: V) satisfy {
+            p(x, y, z)
+        }
+        exists(a: T) {
+            a = x and exists(b: U) {
+                b = y and exists(c: V) {
+                    c = z and p(a, b, c)
+                }
+            }
+        }
+    }
+}
+
+/// Nested existential witnesses give a triple existential.
+theorem exists_nested_imp_triple[T, U, V](p: (T, U, V) -> Bool) {
+    exists(x: T) {
+        exists(y: U) {
+            exists(z: V) {
+                p(x, y, z)
+            }
+        }
+    } implies exists(x: T, y: U, z: V) {
+        p(x, y, z)
+    }
+} by {
+    if exists(x: T) { exists(y: U) { exists(z: V) { p(x, y, z) } } } {
+        let x: T satisfy {
+            exists(y: U) {
+                exists(z: V) {
+                    p(x, y, z)
+                }
+            }
+        }
+        let y: U satisfy {
+            exists(z: V) {
+                p(x, y, z)
+            }
+        }
+        let z: V satisfy {
+            p(x, y, z)
+        }
+        exists(a: T, b: U, c: V) {
+            a = x and b = y and c = z and p(a, b, c)
+        }
+    }
+}
+
+/// Triple and nested existential forms are equivalent.
+theorem exists_triple_eq_nested[T, U, V](p: (T, U, V) -> Bool) {
+    exists(x: T, y: U, z: V) { p(x, y, z) } =
+    exists(x: T) { exists(y: U) { exists(z: V) { p(x, y, z) } } }
+} by {
+    if exists(x: T, y: U, z: V) { p(x, y, z) } {
+        exists_triple_imp_nested(p)
+        exists(x: T) { exists(y: U) { exists(z: V) { p(x, y, z) } } }
+    }
+    if exists(x: T) { exists(y: U) { exists(z: V) { p(x, y, z) } } } {
+        exists_nested_imp_triple(p)
+        exists(x: T, y: U, z: V) { p(x, y, z) }
+    }
+    exists(x: T, y: U, z: V) { p(x, y, z) } =
+    exists(x: T) { exists(y: U) { exists(z: V) { p(x, y, z) } } }
+}

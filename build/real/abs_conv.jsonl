@@ -448,8 +448,6 @@
 {"goal":"limit(mask_seq_sum(a, s)) = 0","proof":["function(x0: Nat -> Real, x1: Real, x2: Real) { not converges_to(x0, x1) or not converges_to(x0, x2) or x1 = x2 }(mask_seq_sum(a, s), limit(mask_seq_sum(a, s)), lib(zero).Zero.0[Real])","function(x0: Nat -> Real) { not converges(x0) or converges_to(x0, limit(x0)) }(mask_seq_sum(a, s))"]}
 {"goal":"vanishes(mask_seq_sum(a, s))","proof":["function(x0: Nat -> Real) { 0 != limit(x0) or not converges(x0) or vanishes(x0) }(mask_seq_sum(a, s))"]}
 {"goal":"decreasing_empty_intersection_mask_vanishes","proof":[]}
-{"goal":"is_decreasing[Nat](seq_complement[Nat](s))","proof":["function(x0: Nat -> Set[Nat]) { forall(x1: Nat) { x0(x1) ⊂ x0(x1.suc) } = set_seq_increasing(x0) }(s)"]}
-{"goal":"increasing_seq_complement_decreasing","proof":[]}
 {"goal":"is_decreasing[Nat](sc)","proof":[]}
 {"goal":"seq_intersection[Nat](sc).is_empty","proof":["function[T0](x0: Nat -> Set[T0]) { seq_union[T0](x0) != Set.universal_set[T0] or seq_intersection[T0](seq_complement[T0](x0)).is_empty }[Nat](s)"]}
 {"goal":"vanishes(mask_seq_sum(a, sc))","proof":["function(x0: Nat -> Set[Nat], x1: Nat -> Real) { not seq_intersection[Nat](x0).is_empty or not is_decreasing[Nat](x0) or not absolutely_converges(x1) or vanishes(mask_seq_sum(x1, x0)) }(sc, a)"]}
@@ -506,7 +504,7 @@
 {"goal":"increasing_universal_union_mask_limit","proof":[]}
 {"goal":"image_of_range_eq_set_image","proof":["function(x0: Nat, x1: Nat -> Nat) { set_image[Nat, Nat](nat_lt_set(x0), x1) = image_of_range(x1, x0) }(k, p)"]}
 {"goal":"image_of_range(p, k).subset(image_of_range(p, k.suc))","proof":[]}
-{"goal":"set_seq_increasing(image_of_range(p))","proof":["function(x0: Nat -> Set[Nat]) { exists(k0: Nat) { not x0(k0) ⊂ x0(k0.suc) } or set_seq_increasing(x0) }(image_of_range(p))","exists(k0: Nat) { not image_of_range(p, k0) ⊂ image_of_range(p, k0.suc) }","let w30: Nat satisfy { not image_of_range(p, w30) ⊂ image_of_range(p, w30.suc) }","function(x0: Nat) { image_of_range(p, x0) ⊂ image_of_range(p, x0.suc) }(w30)"]}
+{"goal":"set_sequence_is_increasing[Nat](image_of_range(p))","proof":["function[T0](x0: Nat -> Set[T0]) { forall(x1: Nat) { x0(x1) ⊂ x0(x1.suc) } = lib(set).is_increasing[T0](x0) }[Nat](image_of_range(p))","function[T0](x0: Nat -> Set[T0]) { set_sequence_is_increasing[T0](x0) = lib(set).is_increasing[T0](x0) }[Nat](image_of_range(p))","function[T0](x0: Nat -> Set[T0]) { not forall(x1: Nat) { x0(x1) ⊂ x0(x1.suc) } or lib(set).is_increasing[T0](x0) }[Nat](image_of_range(p))","not lib(set).is_increasing[Nat](image_of_range(p))","let w0: Nat satisfy { not image_of_range(p, w0) ⊂ image_of_range(p, w0.suc) }","function(x0: Nat) { image_of_range(p, x0) ⊂ image_of_range(p, x0.suc) }(w0)"]}
 {"goal":"image_of_range_increasing","proof":[]}
 {"goal":"set_image_seq(nat_lt_set, p, k) = set_image[Nat, Nat](nat_lt_set(k), p)","proof":["function[T0, T1](x0: Nat -> Set[T0], x1: T0 -> T1, x2: Nat) { set_image_seq[T0, T1](x0, x1, x2) = set_image[T0, T1](x0(x2), x1) }[Nat, Nat](nat_lt_set, p, k)"]}
 {"goal":"image_of_range(p, k) = set_image_seq(nat_lt_set, p, k)","proof":[]}
@@ -635,7 +633,7 @@
 {"goal":"is_bijection[Nat](p)","proof":[]}
 {"goal":"is_injective[Nat](p)","proof":["function[T0, T1](x0: T0 -> T1) { (lib(util).is_injective_fn[T0, T1](x0) and lib(util).is_surjective_fn[T0, T1](x0)) = lib(util).is_bijection_fn[T0, T1](x0) }[Nat, Nat](p)","function[T0](x0: T0 -> T0) { is_bijection[T0](x0) = lib(util).is_bijection_fn[T0, T0](x0) }[Nat](p)","function[T0](x0: T0 -> T0) { is_injective[T0](x0) = lib(util).is_injective_fn[T0, T0](x0) }[Nat](p)"]}
 {"goal":"is_surjective[Nat](p)","proof":["function[T0, T1](x0: T0 -> T1) { (lib(util).is_injective_fn[T0, T1](x0) and lib(util).is_surjective_fn[T0, T1](x0)) = lib(util).is_bijection_fn[T0, T1](x0) }[Nat, Nat](p)","function[T0](x0: T0 -> T0) { is_bijection[T0](x0) = lib(util).is_bijection_fn[T0, T0](x0) }[Nat](p)","function[T0](x0: T0 -> T0) { is_surjective[T0](x0) = lib(util).is_surjective_fn[T0, T0](x0) }[Nat](p)"]}
-{"goal":"set_seq_increasing(image_of_range(p))","proof":["function(x0: Nat -> Nat) { not is_injective[Nat](x0) or set_seq_increasing(image_of_range(x0)) }(p)"]}
+{"goal":"set_sequence_is_increasing[Nat](image_of_range(p))","proof":["function(x0: Nat -> Nat) { not is_injective[Nat](x0) or set_sequence_is_increasing[Nat](image_of_range(x0)) }(p)"]}
 {"goal":"seq_union[Nat](image_of_range(p)) = Set.universal_set[Nat]","proof":["function(x0: Nat -> Nat) { not is_surjective[Nat](x0) or seq_union[Nat](image_of_range(x0)) = Set.universal_set[Nat] }(p)"]}
 {"goal":"compose[Nat, Nat, Real](abs_fn(a), p)(n) = abs_fn(a)(p(n))","proof":["function[T0, T1, T2](x0: T1 -> T2, x1: T0 -> T1, x2: T0) { compose[T0, T1, T2](x0, x1, x2) = x0(x1(x2)) }[Nat, Nat, Real](abs_fn(a), p, n)"]}
 {"goal":"abs_fn(a)(p(n)) = a(p(n)).abs","proof":["function(x0: Nat -> Real, x1: Nat) { compose[Nat, Real, Real](Real.abs, x0, x1) = abs_fn(x0, x1) }(a, p(n))","function[T0, T1, T2](x0: T1 -> T2, x1: T0 -> T1, x2: T0) { compose[T0, T1, T2](x0, x1, x2) = x0(x1(x2)) }[Nat, Real, Real](Real.abs, a, p(n))"]}
@@ -659,7 +657,7 @@
 {"goal":"partial[Real](compose[Nat, Nat, Real](abs_fn(a), p)) = mask_seq_sum(abs_fn(a), image_of_range(p))","proof":[]}
 {"goal":"partial[Real](abs_fn(compose[Nat, Nat, Real](a, p))) = partial[Real](compose[Nat, Nat, Real](abs_fn(a), p))","proof":[]}
 {"goal":"partial[Real](abs_fn(compose[Nat, Nat, Real](a, p))) = mask_seq_sum(abs_fn(a), image_of_range(p))","proof":[]}
-{"goal":"converges_to(mask_seq_sum(abs_fn(a), image_of_range(p)), limit(partial[Real](abs_fn(a))))","proof":["function(x0: Nat -> Set[Nat], x1: Nat -> Real) { seq_union[Nat](x0) != Set.universal_set[Nat] or not set_seq_increasing(x0) or not absolutely_converges(x1) or converges_to(mask_seq_sum(x1, x0), limit(partial[Real](x1))) }(image_of_range(p), abs_fn(a))"]}
+{"goal":"converges_to(mask_seq_sum(abs_fn(a), image_of_range(p)), limit(partial[Real](abs_fn(a))))","proof":["function(x0: Nat -> Set[Nat], x1: Nat -> Real) { seq_union[Nat](x0) != Set.universal_set[Nat] or not set_sequence_is_increasing[Nat](x0) or not absolutely_converges(x1) or converges_to(mask_seq_sum(x1, x0), limit(partial[Real](x1))) }(image_of_range(p), abs_fn(a))"]}
 {"goal":"converges_to(partial[Real](abs_fn(compose[Nat, Nat, Real](a, p))), limit(partial[Real](abs_fn(a))))","proof":[]}
 {"goal":"converges(partial[Real](abs_fn(compose[Nat, Nat, Real](a, p))))","proof":["function(x0: Nat -> Real, x1: Real) { not converges_to(x0, x1) or converges(x0) }(partial[Real](abs_fn(compose[Nat, Nat, Real](a, p))), limit(partial[Real](abs_fn(a))))"]}
 {"goal":"absolutely_converges(compose[Nat, Nat, Real](a, p))","proof":["function(x0: Nat -> Real) { converges(partial[Real](abs_fn(x0))) = absolutely_converges(x0) }(compose[Nat, Nat, Real](a, p))"]}
@@ -667,12 +665,12 @@
 {"goal":"is_bijection[Nat](p)","proof":[]}
 {"goal":"is_injective[Nat](p)","proof":["function[T0, T1](x0: T0 -> T1) { (lib(util).is_injective_fn[T0, T1](x0) and lib(util).is_surjective_fn[T0, T1](x0)) = lib(util).is_bijection_fn[T0, T1](x0) }[Nat, Nat](p)","function[T0](x0: T0 -> T0) { is_bijection[T0](x0) = lib(util).is_bijection_fn[T0, T0](x0) }[Nat](p)","function[T0](x0: T0 -> T0) { is_injective[T0](x0) = lib(util).is_injective_fn[T0, T0](x0) }[Nat](p)"]}
 {"goal":"is_surjective[Nat](p)","proof":["function[T0, T1](x0: T0 -> T1) { (lib(util).is_injective_fn[T0, T1](x0) and lib(util).is_surjective_fn[T0, T1](x0)) = lib(util).is_bijection_fn[T0, T1](x0) }[Nat, Nat](p)","function[T0](x0: T0 -> T0) { is_bijection[T0](x0) = lib(util).is_bijection_fn[T0, T0](x0) }[Nat](p)","function[T0](x0: T0 -> T0) { is_surjective[T0](x0) = lib(util).is_surjective_fn[T0, T0](x0) }[Nat](p)"]}
-{"goal":"set_seq_increasing(image_of_range(p))","proof":["function(x0: Nat -> Nat) { not is_injective[Nat](x0) or set_seq_increasing(image_of_range(x0)) }(p)"]}
+{"goal":"set_sequence_is_increasing[Nat](image_of_range(p))","proof":["function(x0: Nat -> Nat) { not is_injective[Nat](x0) or set_sequence_is_increasing[Nat](image_of_range(x0)) }(p)"]}
 {"goal":"seq_union[Nat](image_of_range(p)) = Set.universal_set[Nat]","proof":["function(x0: Nat -> Nat) { not is_surjective[Nat](x0) or seq_union[Nat](image_of_range(x0)) = Set.universal_set[Nat] }(p)"]}
 {"goal":"partial[Real](compose[Nat, Nat, Real](a, p), k) = limit(partial[Real](mask(a, image_of_range(p, k))))","proof":["function(x0: Nat -> Nat, x1: Nat -> Real, x2: Nat) { not is_injective[Nat](x0) or not absolutely_converges(x1) or partial[Real](compose[Nat, Nat, Real](x1, x0), x2) = limit(partial[Real](mask(x1, image_of_range(x0, x2)))) }(p, a, k)"]}
 {"goal":"mask_seq_sum(a, image_of_range(p), k) = limit(partial[Real](mask(a, image_of_range(p, k))))","proof":["function(x0: Nat -> Real, x1: Nat -> Set[Nat], x2: Nat) { limit(partial[Real](mask(x0, x1(x2)))) = mask_seq_sum(x0, x1, x2) }(a, image_of_range(p), k)"]}
 {"goal":"partial[Real](compose[Nat, Nat, Real](a, p), k) = mask_seq_sum(a, image_of_range(p), k)","proof":[]}
 {"goal":"partial[Real](compose[Nat, Nat, Real](a, p)) = mask_seq_sum(a, image_of_range(p))","proof":[]}
-{"goal":"converges_to(mask_seq_sum(a, image_of_range(p)), limit(partial[Real](a)))","proof":["function(x0: Nat -> Set[Nat], x1: Nat -> Real) { seq_union[Nat](x0) != Set.universal_set[Nat] or not set_seq_increasing(x0) or not absolutely_converges(x1) or converges_to(mask_seq_sum(x1, x0), limit(partial[Real](x1))) }(image_of_range(p), a)"]}
+{"goal":"converges_to(mask_seq_sum(a, image_of_range(p)), limit(partial[Real](a)))","proof":["function(x0: Nat -> Set[Nat], x1: Nat -> Real) { seq_union[Nat](x0) != Set.universal_set[Nat] or not set_sequence_is_increasing[Nat](x0) or not absolutely_converges(x1) or converges_to(mask_seq_sum(x1, x0), limit(partial[Real](x1))) }(image_of_range(p), a)"]}
 {"goal":"converges_to(partial[Real](compose[Nat, Nat, Real](a, p)), limit(partial[Real](a)))","proof":[]}
 {"goal":"riemann_rearrangement_theorem","proof":[]}
